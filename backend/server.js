@@ -11,7 +11,7 @@ const PORT = 8080;
 
 app.use(express.json());
 app.use(cors({
-  origin: "https://do-do-sable.vercel.app/",
+  origin: "https://do-do-sable.vercel.app",
 }));
 
 app.use("/api", chatRoutes);
