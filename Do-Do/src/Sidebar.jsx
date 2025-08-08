@@ -16,7 +16,7 @@ function Sidebar() {
 
     const getAllThreads = async () => {
         try {
-            const response = await fetch("http://localhost:8080/api/thread", {
+            const response = await fetch("https://do-do.onrender.com/api/thread", {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -53,7 +53,7 @@ function Sidebar() {
     const changeThread = async (newThreadId) => {
         setCurrThreadid(newThreadId);
         try {
-            const response = await fetch(`http://localhost:8080/api/thread/${newThreadId}`, {
+            const response = await fetch(`https://do-do.onrender.com/api/thread/${newThreadId}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
@@ -75,7 +75,7 @@ function Sidebar() {
 
     const deleteThread = async (threadId) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/thread/${threadId}`, {
+            const response = await fetch(`https://do-do.onrender.com/api/thread/${threadId}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": `Bearer ${token}`

@@ -47,7 +47,7 @@ function ChatWindow() {
         };
 
         try {
-            const response = await fetch("http://localhost:8080/api/chat", options);
+            const response = await fetch("https://do-do.onrender.com/api/chat", options);
 
             if (!response.ok) {
                 const errorText = await response.text();
