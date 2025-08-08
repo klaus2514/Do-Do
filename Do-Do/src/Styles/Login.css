@@ -12,7 +12,7 @@
 .login-left {
   max-width: 50%;
   flex: 1;
-  background: url('../public/signup.jpg') no-repeat center center;
+  background: url('/signup.jpg') no-repeat center center;
   background-size: cover;
   display: flex;
   align-items: center;

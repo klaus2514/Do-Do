@@ -2,6 +2,8 @@ import "./Styles/Sidebar.css";
 import { useContext, useEffect, useState } from "react";
 import { MyContext } from "./MyContext.jsx";
 import { v1 as uuidv1 } from "uuid";
+import blackLogo from "./assets/blacklogo.png";
+
 
 function Sidebar() {
     const {
@@ -108,7 +110,7 @@ function Sidebar() {
 
             <section className={`sidebar ${isHidden ? "sidebar-hidden" : ""}`}>
                 <button onClick={createNewChat}>
-                    <img src="src/assets/blacklogo.png" alt="gpt logo" className="logo" />
+                    <img src={blackLogo} alt="gpt logo" className="logo" />
                     <span><i className="fa-solid fa-pen-to-square"></i></span>
                 </button>
 
