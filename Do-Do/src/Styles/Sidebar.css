@@ -1,85 +1,161 @@
-section{
-    background-color: #171717;
-    color: #b4b4b4;
-    height: 100vh;
-    width: 320px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
+section {
+  background-color: #171717;
+  color: #b4b4b4;
+  height: 100vh;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
 
-button{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: transparent;
-    border:  solid 0.5px rgba(255,255,255,0.5);
-    cursor: pointer;
+button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: transparent;
+  border: solid 0.5px rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  width: calc(100% - 20px);
+  box-sizing: border-box;
 }
 
-.logo{
-    height: 25px;
-    width: 25px;
-    background-color: #fff;
-    border-radius: 50%;
-    object-fit: cover;
+.logo {
+  height: 25px;
+  width: 25px;
+  background-color: #fff;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-button span{
-    font-size: 20px;
-
+button span {
+  font-size: 20px;
+  margin-top: 50px;
 }
 
-button:hover{
-    background-color: rgba(180,180,180,0.05);
-
-
+button:hover {
+  background-color: rgba(180, 180, 180, 0.05);
 }
 
-.history{
-    margin: 10px;
-    padding: 10px;
-    height: 100%;
+.history {
+  margin: 10px;
+  padding: 10px;
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
-.history li{
-    list-style: none;
-    cursor: pointer;
-    padding: 2px 5px;
-    margin-bottom: 0.3rem;
-    font-size: 14px;
-    border: solid 10px transparent;
-    position: relative;
+.history li {
+  list-style: none;
+  cursor: pointer;
+  padding: 2px 5px;
+  margin-bottom: 0.3rem;
+  font-size: 14px;
+  border: solid 10px transparent;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.history li:hover{
-    background-color: rgba(180,180,180,0.05);
-    border-radius: 10px;
+.history li:hover {
+  background-color: rgba(180, 180, 180, 0.05);
+  border-radius: 10px;
 }
 
-.sign{
-    padding: 10px;
-    margin: 10px;
-    font-size: 14px;
-    text-align: center;
-    border-top: solid 0.25px rgba(255,255,255,0.5);
+.sign {
+  padding: 10px;
+  margin: 10px;
+  font-size: 14px;
+  text-align: center;
+  border-top: solid 0.25px rgba(255, 255, 255, 0.5);
 }
 
-.fa-trash{
-    opacity: 0;
-    position: absolute;
-    right: 0;
+.fa-trash {
+  opacity: 0;
+  position: absolute;
+  right: 10px;
+  transition: opacity 0.2s ease;
 }
 
-.history li:hover .fa-trash{
-    opacity: 1;
-    color: #fff;
+.history li:hover .fa-trash {
+  opacity: 1;
+  color: #fff;
 }
 
-.fa-trash:hover{
-    color: chocolate !important;
+.fa-trash:hover {
+  color: chocolate !important;
+}
+/* Hide sidebar by sliding it left */
+.sidebar-hidden {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+/* Ensure visible state has no transform */
+section {
+  transition: transform 0.3s ease;
+}
+.sidebar {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-hidden {
+  transform: translateX(-100%);
+}
+
+/* Style the toggle button */
+.sidebar-toggle {
+  position: absolute;
+  top: 21px;
+
+  left: 13.5rem;
+  color: white;
+  font-size: 24px;
+  z-index: 9999;
+  cursor: pointer;
+}
+
+
+/* ✅ Responsive adjustments */
+@media (max-width: 768px) {
+  section {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  .logo {
+    height: 20px;
+    width: 20px;
+  }
+
+  .history li {
+    font-size: 13px;
+  }
+
+  .sign {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  button span {
+    font-size: 16px;
+  }
+
+  .fa-trash {
+    right: 5px;
+  }
+
+  .history li {
+    padding-right: 25px;
+  }
 }

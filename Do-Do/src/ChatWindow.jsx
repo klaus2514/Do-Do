@@ -4,6 +4,7 @@ import { MyContext } from "./MyContext.jsx";
 import { useContext, useState, useEffect } from "react";
 import { ScaleLoader } from "react-spinners";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 function ChatWindow() {
     const {
@@ -15,6 +16,7 @@ function ChatWindow() {
 
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate();
 
     // ✅ Set threadId once after initial mount
     useEffect(() => {
@@ -25,17 +27,18 @@ function ChatWindow() {
     }, [currThreadid, setCurrThreadid]);
 
     const getReply = async () => {
-        if (!currThreadid) return; // Ensure threadId exists
+        if (!currThreadid || !prompt.trim()) return;
 
         setLoading(true);
         setNewChat(false);
 
-        
+        const token = localStorage.getItem('token');
 
         const options = {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
                 message: prompt,
@@ -45,16 +48,23 @@ function ChatWindow() {
 
         try {
             const response = await fetch("http://localhost:8080/api/chat", options);
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(errorText);
+            }
+
             const res = await response.json();
             setReply(res.reply);
         } catch (err) {
-            console.error("Fetch error:", err);
+            console.error("Fetch error:", err.message);
+            setReply("❌ Failed to fetch reply. Please try again.");
         }
 
         setLoading(false);
     };
 
-    // ✅ Append new user/assistant chat pair to chat history
+    // ✅ Append user & assistant messages to chat history
     useEffect(() => {
         if (prompt && reply) {
             setPrevChats(prevChats => [
@@ -62,13 +72,17 @@ function ChatWindow() {
                 { role: "user", content: prompt },
                 { role: "assistant", content: reply }
             ]);
-            
         }
         setPrompt("");
     }, [reply]);
 
     const handleProfileClick = () => {
         setIsOpen(!isOpen);
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/");
     };
 
     return (
@@ -82,9 +96,9 @@ function ChatWindow() {
 
             {isOpen && (
                 <div className="dropDown">
-                    <div className="dropDownItem"><i className="fa-solid fa-gear"></i> Settings</div>
-                    <div className="dropDownItem"><i className="fa-solid fa-cloud-arrow-up"></i> Upgrade plan</div>
-                    <div className="dropDownItem"><i className="fa-solid fa-arrow-right-from-bracket"></i> Log out</div>
+                    <div className="dropDownItem" onClick={handleLogout}>
+                        <i className="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                    </div>
                 </div>
             )}
 
